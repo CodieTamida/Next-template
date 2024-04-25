@@ -39,6 +39,11 @@ const Navbar = () => {
                 About
               </Link>
             </li>
+            <li onClick={removeActive}>
+              <Link href="/SignIn" className={`${styles.navlink}`}>
+                Sign In
+              </Link>
+            </li>
           </ul>
           <div
             className={`${styles.hamburger} ${isActive ? styles.active : ""}`}
