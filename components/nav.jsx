@@ -34,7 +34,7 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            <li onCLick={removeActive}>
+            <li onClick={removeActive}>
               <Link href="/About" className={`${styles.navlink}`}>
                 About
               </Link>

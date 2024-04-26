@@ -1,15 +1,28 @@
-//export { auth as middleware } from "auth";
-import About from "@/app/About/page";
-import Home from "@/app/page";
 import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getSession } from "next-auth/react";
 
-// This function can be marked `async` if using `await` inside
-export function middleware(request) {
-  return NextResponse.redirect(new URL("/", request.url));
+import { auth } from "../auth";
+
+export async function middleware(req) {
+  console.log("Middleware check");
+  const session = await auth();
+  console.log("Session", session);
+  if (!session) {
+    console.log("No session, redirecting ...");
+    const url = new URL("/SignIn", req.url);
+    return NextResponse.redirect(url);
+  }
+  return NextResponse.next();
 }
+
+// export default auth((req) => {
+//   if (!req.auth) {
+//     return NextResponse.redirect("/SignIn");
+//   }
+// });
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: "/About",
+  matcher: "/About/:path*",
 };
